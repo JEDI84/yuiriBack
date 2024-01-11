@@ -5,7 +5,6 @@ const Admin = sequelize.define('admin', {
     username: {
         type: DataTypes.STRING,
     },
-
     last_name: {
         type: DataTypes.STRING,
     },
@@ -26,6 +25,7 @@ const Admin = sequelize.define('admin', {
 },
     {
         updatedAt: false,
+        createAt: false, 
     }
 );
 

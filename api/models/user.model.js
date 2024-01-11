@@ -7,7 +7,7 @@ const User = sequelize.define(
     username: {
       type: DataTypes.STRING,
       len: [2, 10],
-  },
+    },
     last_name: {
       type: DataTypes.STRING,
     },
@@ -18,10 +18,10 @@ const User = sequelize.define(
     password: {
       type: DataTypes.STRING,
     },
-    
   },
   {
     updateAt: false,
+    createAt: false,
   }
 );
 

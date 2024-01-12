@@ -22,16 +22,13 @@ async function checkConnection() {
 }
 
 async function syncModels(value) {
-  const state = {
-    alter: { alter: true },
-    // force: { force: true },
+  const state = { 
+    alter: { alter: true }
   };
-
+  
   try {
-    await sequelize.sync(state[value] || "");
-    console.log(
-      `All models synchronized using ${JSON.stringify(state[value]) || ""}`
-    );
+    await sequelize.sync({ alter: true });
+    console.log(`All models synchronized using ${JSON.stringify(state[value]) || ""}`);
   } catch (error) {
     throw error;
   }

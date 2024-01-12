@@ -15,9 +15,7 @@ const Booking = sequelize.define('booking',
       type: DataTypes.INTEGER,
     },
   },
-  {
-    createdAt: false,
-  }
+  
 );
 
 module.exports = Booking;

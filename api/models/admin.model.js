@@ -20,6 +20,7 @@ const Admin = sequelize.define(
     },
     telephone_number: {
       type: DataTypes.INTEGER,
+  
     },
     password: {
       type: DataTypes.STRING,

@@ -1,6 +1,6 @@
+const bcrypt = require("bcrypt");
 const Admin = require("../models/admin.model.js");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
 
 async function login(req, res) {
   try {
@@ -27,19 +27,40 @@ async function login(req, res) {
   }
 }
 
-async function signup(req, res) {
-  const saltRounds = bcrypt.genSaltSync(parseInt(process.env.SALTROUNDS));
-  const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
-  req.body.password = hashedPassword;
+// async function signup(req, res) {
+//   const saltRounds = bcrypt.genSaltSync(parseInt(process.env.SALTROUNDS));
+//   const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds);
+//   req.body.password = bcrypt.hashSync(
+//     req.body.password,
+//     bcrypt.genSaltSync(parseInt(process.env.SALTROUNDS))
+//   );
 
+//   try {
+//       console.log(req.body)
+//       const newUser = await Admin.create(req.body);
+//     const payload = { email: newUser.email };
+//     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
+//     return res.status(200).json({ token });
+//   } catch (error) {
+//     res.status(500).send("error");
+//   }
+// }
+async function signup(req, res) {
   try {
-      console.log(req.body)
-      const newUser = await Admin.create(req.body);
+    const saltRounds = parseInt(process.env.SALTROUNDS);
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    req.body.password = hashedPassword;
+
+    console.log(req.body);
+
+    const newUser = await Admin.create(req.body);
     const payload = { email: newUser.email };
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: "1h" });
+
     return res.status(200).json({ token });
   } catch (error) {
-    res.status(500).send("error");
+    console.error(error);
+    res.status(500).send("Error during signup");
   }
 }
 
